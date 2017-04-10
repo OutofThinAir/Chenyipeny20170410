@@ -9,24 +9,42 @@ import android.widget.Button;
 import com.bawei.chenyipeng.R;
 import com.bawei.chenyipeng.view.MyView;
 
+import static java.lang.Thread.sleep;
+
 public class MainActivity extends AppCompatActivity {
+
+    private int mix=0;
+    private MyView myView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final MyView myView = (MyView) findViewById(R.id.main_myview);
+        myView = (MyView) findViewById(R.id.main_myview);
         Button button = (Button) findViewById(R.id.main_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        myView.jiadujia(3);
+                        while (true) {
+                           mix++;
+                            myView.setJindu(mix);
+                            try {
+                                sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (mix == 100) {
+                                break;
+                            }
+
+                        }
                     }
-                },5000);
+
+
+                }).start();
 
             }
         });

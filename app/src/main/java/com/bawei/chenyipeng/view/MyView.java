@@ -27,7 +27,7 @@ public class MyView  extends ImageView{
     private int textResId;
     private Paint paint;
     private int yuancolor;
-    int jindu=-90;
+    int jindu;
 
     public MyView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -76,12 +76,13 @@ public class MyView  extends ImageView{
         RectF rect = new RectF(120-100,120-100,120+100,120+100);
         paint.setColor(jinduiresId);
         paint.setStrokeWidth(20);
-        canvas.drawArc(rect,-0,jindu,false,paint);
+        float alig = (float) (jindu/100)*360;
+        canvas.drawArc(rect,-90,alig,false,paint);
     }
 
-    public void jiadujia(int a){
-        jindu=jindu-1;
+    public void setJindu(int min){
 
-        invalidate();
+       this.jindu=min;
+        postInvalidate();
     }
 }
